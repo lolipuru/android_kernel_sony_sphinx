@@ -27,7 +27,7 @@
 #include <linux/pm_runtime.h>
 #include <linux/sched/types.h>
 #include <cam_cci_dev.h>
-#include <sony_camera.h>
+#include "sony_camera.h" 
 
 #ifdef ENABLE_LOGE
 #define LOGE(f, a...)	pr_err("%s: " f, __func__, ##a)

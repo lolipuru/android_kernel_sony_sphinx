@@ -2,7 +2,7 @@
 # Kernel module make instructions go here.
 #
 
-obj-$(CONFIG_NFC_PN553_DEVICES) += pn553.o
+obj-y += pn553.o
 
-ccflags-$(CONFIG_NFC_PN553_DEVICES) := -DDEBUG
+ccflags-y := -DDEBUG
 

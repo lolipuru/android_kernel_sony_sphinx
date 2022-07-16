@@ -8,4 +8,3 @@ obj-y				+= powerkey_forcecrash/
 obj-y				+= sec_ts/
 obj-y				+= sony_camera/
 obj-y				+= tcs3490/
-header-y			+= include/

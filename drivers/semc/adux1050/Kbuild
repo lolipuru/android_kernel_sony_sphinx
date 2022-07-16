@@ -3,4 +3,4 @@ ccflags-y += -DCONFIG_ADUX1050_DEBUG
 ccflags-y += -DCONFIG_ADUX1050_EVAL
 endif
 
-obj-m := adux1050.o
+obj-y := adux1050.o
