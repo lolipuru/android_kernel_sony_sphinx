@@ -3575,7 +3575,7 @@ __alloc_pages_direct_compact(gfp_t gfp_mask, unsigned int order,
 	return NULL;
 }
 
-#ifdef CONFIG_HAVE_LOW_MEMORY_KILLER
+#if defined(CONFIG_HAVE_LOW_MEMORY_KILLER) && !defined(CONFIG_HAVE_LOW_MEMORY_KILLER_TNG)
 static inline bool
 should_compact_lmk_retry(struct alloc_context *ac, int order, int alloc_flags)
 {
@@ -4349,6 +4349,8 @@ nopage:
 fail:
 	warn_alloc(gfp_mask, ac->nodemask,
 			"page allocation failure: order:%u", order);
+	trace_mm_page_alloc_fail(order, gfp_mask);
+
 got_pg:
 	return page;
 }
@@ -4461,6 +4463,9 @@ out:
 	}
 
 	trace_mm_page_alloc(page, order, alloc_mask, ac.migratetype);
+	if (order > 1)
+		trace_mm_page_alloc_highorder(page, order,
+					      alloc_mask, ac.migratetype);
 
 	return page;
 }

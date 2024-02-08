@@ -190,6 +190,12 @@ else
 fi
 
 echo "------------------------------------"
+echo "running vmalloc stability smoke test"
+echo "------------------------------------"
+./test_vmalloc.sh smoke
+ret_val=$?
+
+echo "------------------------------------"
 echo "running MREMAP_DONTUNMAP smoke test"
 echo "------------------------------------"
 ./mremap_dontunmap
