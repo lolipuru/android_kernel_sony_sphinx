@@ -3213,20 +3213,6 @@ exit:
 	return rc;
 }
 
-#if defined(CONFIG_SOMC_CHARGER_EXTENSION)
-int smblib_set_prop_charging_enabled(struct smb_charger *chg,
-				const union power_supply_propval *val)
-{
-	int rc;
-	union power_supply_propval tmp = *val;
-
-	tmp.intval = tmp.intval ? 0 : 1;
-	rc = smblib_set_prop_input_suspend(chg, &tmp);
-	return rc;
-}
-
-#endif
-
 /*******************
  * DC PSY GETTERS *
  *******************/

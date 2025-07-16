@@ -837,11 +837,6 @@ int smblib_set_prop_system_temp_level(struct smb_charger *chg,
 				const union power_supply_propval *val);
 int smblib_set_prop_input_current_limited(struct smb_charger *chg,
 				const union power_supply_propval *val);
-#if defined(CONFIG_SOMC_CHARGER_EXTENSION)
-int smblib_set_prop_charging_enabled(struct smb_charger *chg,
-				const union power_supply_propval *val);
-#endif
-
 int smblib_get_prop_dc_present(struct smb_charger *chg,
 				union power_supply_propval *val);
 int smblib_get_prop_dc_online(struct smb_charger *chg,
