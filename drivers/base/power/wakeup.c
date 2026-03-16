@@ -216,6 +216,12 @@ void wakeup_source_add(struct wakeup_source *ws)
 	ws->active = false;
 
 	spin_lock_irqsave(&events_lock, flags);
+
+	if (wakeup_sources.next->prev != &wakeup_sources) {
+               wakeup_sources.next->prev, &wakeup_sources;
+        wakeup_sources.next->prev = &wakeup_sources;
+    }
+
 	list_add_rcu(&ws->entry, &wakeup_sources);
 	spin_unlock_irqrestore(&events_lock, flags);
 }
