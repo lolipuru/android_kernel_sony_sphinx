@@ -645,13 +645,13 @@
 		pil_spss_mem: pil_spss_region {
 			compatible = "removed-dma-pool";
 			no-map;
-			reg = <0x0 0x98d00000 0x0 0x100000>;
+			reg = <0x0 0x9ab00000 0x0 0x100000>; 
 		};
 
 		pil_cdsp_mem: cdsp_regions {
 			compatible = "removed-dma-pool";
 			no-map;
-			reg = <0x0 0x98e00000 0x0 0x1400000>;
+			reg = <0x0 0x98d00000 0x0 0x1e00000>; 
 		};
 
 		qseecom_mem: qseecom_region {
