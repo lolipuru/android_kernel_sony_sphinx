@@ -2,7 +2,6 @@ obj-y				+= adux1050/
 obj-y				+= bu520x1nvx/
 obj-y				+= camera_sync/
 obj-y				+= flash_led/
-obj-y				+= last_logs/
 obj-y				+= pn553/
 obj-y				+= powerkey_forcecrash/
 obj-y				+= sec_ts/
