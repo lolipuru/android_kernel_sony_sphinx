@@ -133,7 +133,6 @@
 };
 
 #include "sec_touchscreen.dtsi"
-#include "somc-kumano-touch_sphinx.dtsi"
 #include "somc-kumano-display.dtsi"
 #include "somc-kumano-plus-display-sphinx.dtsi"
 #include "charger-kumano-common.dtsi"
