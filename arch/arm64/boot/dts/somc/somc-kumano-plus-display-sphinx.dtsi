@@ -46,6 +46,8 @@
 	qcom,mdss-brightness-max-level = <4095>;
 	qcom,mdss-dsi-panel-peak-brightness = <4200000>;
 	qcom,mdss-dsi-panel-blackness-level = <3230>;
+	qcom,mdss-dsi-panel-hdr-enabled;
+	qcom,mdss-dsi-panel-hdr-color-primaries = <15335 15900 34110 15890 12460 35210 6890 2500>;
 	qcom,mdss-dsi-mode-sel-gpio-state = "single_port";
 	qcom,platform-te-gpio = <&tlmm 8 0>;
 	qcom,platform-reset-gpio = <&tlmm 6 0>;
