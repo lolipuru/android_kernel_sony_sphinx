@@ -60,7 +60,9 @@
 #define SONY_CAMERA_THERMAL_NAME_0		"sony_camera_0"
 #define SONY_CAMERA_THERMAL_NAME_1		"sony_camera_1"
 #define SONY_CAMERA_THERMAL_NAME_2		"sony_camera_2"
+#ifndef CONFIG_MACH_SONY_SPHINX
 #define SONY_CAMERA_THERMAL_NAME_3		"sony_camera_3"
+#endif
 #define SONY_CAMERA_THERMAL_NUM			(3)
 
 #define SONY_CAMERA_PINCTRL_STATE_SLEEP		"cam_suspend"
@@ -1242,10 +1244,12 @@ static int sony_camera_thermal_get_temp(
 		sizeof(SONY_CAMERA_THERMAL_NAME_2))) {
 		id = 0;
 		thermal_id = 1;
+#ifndef CONFIG_MACH_SONY_SPHINX
 	} else if (!strncmp(thermal->type, SONY_CAMERA_THERMAL_NAME_3,
 		sizeof(SONY_CAMERA_THERMAL_NAME_3))) {
 		id = 0;
 		thermal_id = 2;
+#endif
 	} else {
 		rc = -EPERM;
 		goto error;
@@ -1710,6 +1714,7 @@ static const struct of_device_id sony_camera_2_dt_match[] = {
 	},
 };
 
+#ifndef CONFIG_MACH_SONY_SPHINX
 static const struct of_device_id sony_camera_3_dt_match[] = {
 	{
 		.compatible = "sony_camera_3",
@@ -1718,6 +1723,7 @@ static const struct of_device_id sony_camera_3_dt_match[] = {
 	{
 	},
 };
+#endif
 
 static const struct of_device_id sony_camera_spi_dt_match[] = {
 	{
@@ -1729,7 +1735,9 @@ static const struct of_device_id sony_camera_spi_dt_match[] = {
 MODULE_DEVICE_TABLE(of, sony_camera_0_dt_match);
 MODULE_DEVICE_TABLE(of, sony_camera_1_dt_match);
 MODULE_DEVICE_TABLE(of, sony_camera_2_dt_match);
+#ifndef CONFIG_MACH_SONY_SPHINX
 MODULE_DEVICE_TABLE(of, sony_camera_3_dt_match);
+#endif
 
 static struct platform_driver sony_camera_platform_driver[] = {
 	{
@@ -1753,6 +1761,7 @@ static struct platform_driver sony_camera_platform_driver[] = {
 			.of_match_table = sony_camera_2_dt_match,
 		},
 	},
+#ifndef CONFIG_MACH_SONY_SPHINX
 	{
 		.driver = {
 			.name = "sony_camera_3",
@@ -1760,6 +1769,7 @@ static struct platform_driver sony_camera_platform_driver[] = {
 			.of_match_table = sony_camera_3_dt_match,
 		},
 	},
+#endif
 };
 
 static void sony_camera_platform_cleanup(void)
@@ -1783,10 +1793,16 @@ static int sony_camera_platform_probe(struct platform_device *p_dev)
 	int rc = 0;
 	uint32_t id = 0;
 	const struct of_device_id *match;
+#ifdef CONFIG_MACH_SONY_SPHINX
+	char *thermal_name[3] = {SONY_CAMERA_THERMAL_NAME_0
+	SONY_CAMERA_THERMAL_NAME_1,
+	SONY_CAMERA_THERMAL_NAME_2};
+#else
 	char *thermal_name[4] = {SONY_CAMERA_THERMAL_NAME_0,
 		SONY_CAMERA_THERMAL_NAME_1,
 		SONY_CAMERA_THERMAL_NAME_2,
 		SONY_CAMERA_THERMAL_NAME_3};
+#endif
 
 	match = of_match_device(sony_camera_0_dt_match, &p_dev->dev);
 	if (!match && sensor_num > 1) {
@@ -1797,10 +1813,12 @@ static int sony_camera_platform_probe(struct platform_device *p_dev)
 		match = of_match_device(sony_camera_2_dt_match, &p_dev->dev);
 		id = 2;
 	}
+#ifndef CONFIG_MACH_SONY_SPHINX
 	if (!match && sensor_num > 3) {
 		match = of_match_device(sony_camera_3_dt_match, &p_dev->dev);
 		id = 3;
 	}
+#endif
 	if (!match) {
 		LOGE("of_match_device fail\n");
 		rc = -EFAULT;
