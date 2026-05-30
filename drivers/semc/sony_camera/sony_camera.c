@@ -1639,12 +1639,8 @@ static long sony_camera_ioctl_common(struct file *file,
 			rc = sony_camera_clear(data);
 			break;
 		case SONY_CAMERA_CMD_BUG_ON:
-		#ifdef CONFIG_MACH_SONY_SPHINX
-            rc = -EIO;
-		#else
 			BUG_ON(1);
 			break;
-		#endif
 		default:
 			rc = -EINVAL;
 			break;
