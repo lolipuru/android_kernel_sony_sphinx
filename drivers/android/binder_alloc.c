@@ -545,8 +545,12 @@ static struct binder_buffer *binder_alloc_new_buf_locked(
 			 * of async space left (which is less than 10% of total
 			 * buffer size).
 			 */
+			buffer->oneway_spam_suspect = debug_low_async_space_locked(alloc, pid);
+		} else {
+			alloc->oneway_spam_detected = false;
 		}
 	}
+	return buffer;
 
 err_alloc_buf_struct_failed:
 	binder_update_page_range(alloc, 0, (void __user *)
