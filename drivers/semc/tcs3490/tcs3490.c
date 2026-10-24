@@ -1271,17 +1271,19 @@ static int tcs3490_sensor_cam_io_notifier_call(struct notifier_block *self,
 		chip = container_of(self, struct tcs3490_chip, cam_io_regulator_cb);
 		dev_info(&chip->client->dev,
 			"%s REGULATOR_EVENT_DISABLE occurred event \n", __func__);
-		if (chip->vdd_supply_enable)
-			rc = regulator_disable(chip->vdd);
-		else if (chip->gpio_vdd_enable)
-			rc = regulator_disable(chip->gpio_vdd);
-		if (!rc) {
-			chip->unpowered = true;
-			dev_info(&chip->client->dev,
-				"%s: Regulator vdd disable OK", __func__);
-		} else {
-			dev_err(&chip->client->dev,
-				"%s: Regulator vdd disable failed", __func__);
+		if (!chip->unpowered) {
+			if (chip->vdd_supply_enable)
+				rc = regulator_disable(chip->vdd);
+			else if (chip->gpio_vdd_enable)
+				rc = regulator_disable(chip->gpio_vdd);
+			if (!rc) {
+				chip->unpowered = true;
+				dev_info(&chip->client->dev,
+					"%s: Regulator vdd disable OK", __func__);
+			} else {
+				dev_err(&chip->client->dev,
+					"%s: Regulator vdd disable failed", __func__);
+			}
 		}
 	}
 
